@@ -17,7 +17,7 @@ pipeline {
         stage('Build and Push Image') {
             steps {
                 script {
-                    docker.withRegistry('https://ghcr.io/', dockerhub-credentials-burak) {
+                    docker.withRegistry('https://ghcr.io/', 'dockerhub-credentials-burak') {
                         def imageTag = "ghcr.io/capitansec/vf-assignment-test:${env.DATE_TAG}-${env.BUILD_ID}"
                         def dockerImage = docker.build(imageTag)
                         dockerImage.push()
