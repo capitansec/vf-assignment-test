@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DATE_TAG = "${new Date().format('yyyy-MM-dd')}"
-        DOCKER_CREDENTIALS_ID = 'github-credentials-burak'
+        DOCKER_CREDENTIALS_ID = 'docker-credentials-burak'
     }
 
     stages {
