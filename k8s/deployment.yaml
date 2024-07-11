@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vf-assesment-deployment
+  labels:
+    app: vf-assesment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vf-assesment
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: vf-assesment
+    spec:
+      imagePullSecrets:
+      - name: docker-config-secret
+      containers:
+      - name: spring-boot-application
+        image: capitansec/vf-assignment-test:2024-03-14--25
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SECRET_VALUE
+          valueFrom:
+            secretKeyRef:
+              name: vf-assesment-secret
+              key: secret_value
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
